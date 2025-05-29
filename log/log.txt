@@ -31,3 +31,8 @@ Wed May 28 2025 20:52:00 GMT-0600 (Central Standard Time) - 500 - ::1 - gvera@uv
 Wed May 28 2025 20:52:05 GMT-0600 (Central Standard Time) - 500 - ::1 - gvera@uv.mx - Unknown column 'producto.description' in 'field list'
 Wed May 28 2025 20:53:57 GMT-0600 (Central Standard Time) - 500 - ::1 - gvera@uv.mx - Unknown column 'producto.description' in 'field list'
 Wed May 28 2025 20:54:00 GMT-0600 (Central Standard Time) - 500 - ::1 - gvera@uv.mx - Unknown column 'producto.description' in 'field list'
+Thu May 29 2025 00:17:33 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo - jwt expired
+Thu May 29 2025 00:18:41 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - itempedido is not associated to pedido!
+Thu May 29 2025 00:36:31 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - itempedido is not associated to pedido!
+Thu May 29 2025 00:43:40 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - itempedido is not associated to pedido!
+Thu May 29 2025 00:44:00 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - itempedido is not associated to pedido!

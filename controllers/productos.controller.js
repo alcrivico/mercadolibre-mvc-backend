@@ -76,6 +76,7 @@ self.get = async function (req, res, next) {
         "titulo",
         "descripcion",
         "precio",
+        "stock",
         "archivoid",
       ],
       include: {
