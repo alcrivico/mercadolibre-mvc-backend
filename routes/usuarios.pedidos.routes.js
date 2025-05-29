@@ -19,6 +19,14 @@ router.get(
   pedidos.getPedidoUsuario
 );
 
+// GET: api/usuarios/:email/pedidos/:pedidoid/items - Listar los items de un pedido específico del usuario
+router.get(
+  "/:email/pedidos/:pedidoid/items",
+  Authorize("Usuario,Administrador"),
+  AuthorizeSelfOrAdmin,
+  pedidos.getItemsPedidoUsuario
+);
+
 // POST: api/usuarios/:email/pedidos - Crear un pedido directo (sin carrito)
 router.post(
   "/:email/pedidos",
