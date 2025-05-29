@@ -593,10 +593,10 @@
             "schema": {
               "type": "object",
               "properties": {
-                "estado": {
+                "items": {
                   "example": "any"
                 },
-                "total": {
+                "estado": {
                   "example": "any"
                 },
                 "direccionEnvio": {
@@ -612,6 +612,9 @@
         "responses": {
           "201": {
             "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "403": {
             "description": "Forbidden"

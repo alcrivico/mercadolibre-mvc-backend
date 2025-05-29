@@ -57,7 +57,19 @@ self.getItemsCarrito = async function (req, res, next) {
       include: [{ model: producto }],
     });
 
-    return res.status(200).json(items);
+    const itemsPlano = items.map((item) => ({
+      id: item.id,
+      pedidoId: item.pedidoid,
+      productoId: item.productoid,
+      cantidad: item.cantidad,
+      precioUnitario: item.precioUnitario,
+      subtotal: item.subtotal,
+      titulo: item.producto?.titulo,
+      descripcion: item.producto?.descripcion,
+      archivoId: item.producto?.archivoid,
+    }));
+
+    return res.status(200).json(itemsPlano);
   } catch (error) {
     next(error);
   }
@@ -94,18 +106,6 @@ self.agregarItemCarrito = async function (req, res, next) {
         productoid: req.body.productoid,
       },
     });
-
-    let producto = await producto.findByPk(req.body.productoid);
-
-    if (!producto) {
-      return res.status(404).json({ error: "Producto no encontrado" });
-    }
-
-    // Si ya existe, suma la cantidad y actualiza el subtotal
-
-    if (req.body.cantidad !== undefined && req.body.cantidad > producto.stock) {
-      return res.status(400).json({ error: "Stock insuficiente" });
-    }
 
     if (item) {
       // Si ya existe, suma la cantidad
