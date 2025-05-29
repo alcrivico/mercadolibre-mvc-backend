@@ -38,3 +38,44 @@ Thu May 29 2025 00:43:40 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@u
 Thu May 29 2025 00:44:00 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - itempedido is not associated to pedido!
 Thu May 29 2025 01:13:37 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - notNull Violation: itempedido.precioUnitario cannot be null
 Thu May 29 2025 01:13:41 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - itempedido is not associated to pedido!
+Thu May 29 2025 02:21:20 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - notNull Violation: itempedido.precioUnitario cannot be null
+Thu May 29 2025 02:23:44 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - notNull Violation: itempedido.precioUnitario cannot be null
+Thu May 29 2025 02:30:45 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo - jwt expired
+Thu May 29 2025 02:32:08 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo - jwt expired
+Thu May 29 2025 02:32:11 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo - jwt expired
+Thu May 29 2025 02:32:12 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo - jwt expired
+Thu May 29 2025 02:32:13 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo - jwt expired
+Thu May 29 2025 02:32:15 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo - jwt expired
+Thu May 29 2025 02:34:13 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo - jwt expired
+Thu May 29 2025 02:34:45 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo - jwt expired
+Thu May 29 2025 02:36:01 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo - jwt expired
+Thu May 29 2025 02:36:28 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo - jwt expired
+Thu May 29 2025 02:36:49 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo - jwt expired
+Thu May 29 2025 02:37:34 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo - jwt expired
+Thu May 29 2025 02:38:32 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo - jwt expired
+Thu May 29 2025 02:38:48 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo - jwt expired
+Thu May 29 2025 02:38:51 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo - jwt expired
+Thu May 29 2025 02:38:55 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo - jwt expired
+Thu May 29 2025 02:42:17 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo - jwt expired
+Thu May 29 2025 02:42:17 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo - jwt expired
+Thu May 29 2025 02:42:51 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo - jwt expired
+Thu May 29 2025 02:42:59 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo - jwt expired
+Thu May 29 2025 02:55:40 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - itempedido is not associated to pedido!
+Thu May 29 2025 02:56:09 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - itempedido is not associated to pedido!
+Thu May 29 2025 02:56:18 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - itempedido is not associated to pedido!
+Thu May 29 2025 02:56:23 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - itempedido is not associated to pedido!
+Thu May 29 2025 03:01:41 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - itempedido is not associated to pedido!
+Thu May 29 2025 03:01:41 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - itempedido is not associated to pedido!
+Thu May 29 2025 03:01:43 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - itempedido is not associated to pedido!
+Thu May 29 2025 03:01:55 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - itempedido is not associated to pedido!
+Thu May 29 2025 03:03:07 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - itempedido is not associated to pedido!
+Thu May 29 2025 03:03:32 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - itempedido is not associated to pedido!
+Thu May 29 2025 03:03:53 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - itempedido is not associated to pedido!
+Thu May 29 2025 03:05:34 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - itempedido is not associated to pedido!
+Thu May 29 2025 03:05:40 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - itempedido is not associated to pedido!
+Thu May 29 2025 03:05:46 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - itempedido is not associated to pedido!
+Thu May 29 2025 03:05:58 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - itempedido is not associated to pedido!
+Thu May 29 2025 03:07:19 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - itempedido is not associated to pedido!
+Thu May 29 2025 03:12:22 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - itempedido is not associated to pedido!
+Thu May 29 2025 03:14:21 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - itempedido is not associated to pedido!
+Thu May 29 2025 03:14:37 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - itempedido is not associated to pedido!

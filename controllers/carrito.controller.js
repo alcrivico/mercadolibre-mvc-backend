@@ -95,6 +95,18 @@ self.agregarItemCarrito = async function (req, res, next) {
       },
     });
 
+    let producto = await producto.findByPk(req.body.productoid);
+
+    if (!producto) {
+      return res.status(404).json({ error: "Producto no encontrado" });
+    }
+
+    // Si ya existe, suma la cantidad y actualiza el subtotal
+
+    if (req.body.cantidad !== undefined && req.body.cantidad > producto.stock) {
+      return res.status(400).json({ error: "Stock insuficiente" });
+    }
+
     if (item) {
       // Si ya existe, suma la cantidad
       item.cantidad += req.body.cantidad || 1;
