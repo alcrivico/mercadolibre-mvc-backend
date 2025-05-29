@@ -62,6 +62,7 @@ self.getItemsCarrito = async function (req, res, next) {
       pedidoId: item.pedidoid,
       productoId: item.productoid,
       cantidad: item.cantidad,
+      stock: item.producto?.stock,
       precioUnitario: item.precioUnitario,
       subtotal: item.subtotal,
       titulo: item.producto?.titulo,
@@ -85,6 +86,8 @@ self.agregarItemCarrito = async function (req, res, next) {
       where: { usuarioid: user.id, esCarrito: true },
     });
 
+    console.log("Carrito encontrado:", carrito);
+
     if (!carrito) {
       carrito = await pedido.create({
         usuarioid: user.id,
@@ -102,18 +105,37 @@ self.agregarItemCarrito = async function (req, res, next) {
     // Verifica si el producto ya está en el carrito
     let item = await itempedido.findOne({
       where: {
-        pedidoid: carrito.id,
         productoid: req.body.productoid,
       },
+      include: [{ model: producto }],
     });
+    console.log("Item encontrado:", item);
+
+    const productoExistente = await producto.findByPk(req.body.productoid);
+
+    if (!productoExistente) {
+      return res.status(404).json({ error: "Producto no encontrado" });
+    }
+
+    // Verifica si el stock es suficiente
+    if (productoExistente.stock < req.body.cantidad) {
+      return res.status(400).json({ error: "Stock insuficiente" });
+    }
 
     if (item) {
-      // Si ya existe, suma la cantidad
+      console.log("Item ya existe en el carrito:", item);
+
+      if (!(item.cantidad + req.body.cantidad <= productoExistente.stock)) {
+        return res
+          .status(400)
+          .json({ error: "Stock insuficiente para el item" });
+      }
       item.cantidad += req.body.cantidad || 1;
       item.subtotal =
         item.cantidad * (req.body.precioUnitario || item.precioUnitario);
       await item.save();
     } else {
+      console.log("Creando nuevo item en el carrito");
       // Si no existe, lo crea
       item = await itempedido.create({
         pedidoid: carrito.id,
@@ -128,6 +150,7 @@ self.agregarItemCarrito = async function (req, res, next) {
 
     return res.status(201).json(item);
   } catch (error) {
+    debug.write("Error al agregar item al carrito:", error);
     next(error);
   }
 };
@@ -135,8 +158,18 @@ self.agregarItemCarrito = async function (req, res, next) {
 // PUT: api/usuarios/:email/carrito/items/:itemid - Modificar cantidad de un item en el carrito
 self.modificarItemCarrito = async function (req, res, next) {
   try {
-    const item = await itempedido.findByPk(req.params.itemid);
+    let item = await itempedido.findOne({
+      where: {
+        pedidoid: req.params.itemid,
+      },
+      include: [{ model: producto }],
+    });
+
     if (!item) return res.status(404).json({ error: "Item no encontrado" });
+
+    if (item.producto && item.producto.stock < (req.body.cantidad || 1)) {
+      return res.status(400).json({ error: "Stock insuficiente" });
+    }
 
     if (req.body.cantidad !== undefined) {
       item.cantidad = req.body.cantidad;

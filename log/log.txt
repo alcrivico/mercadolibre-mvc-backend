@@ -118,3 +118,16 @@ Thu May 29 2025 04:33:03 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo
 Thu May 29 2025 04:33:03 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo - jwt expired
 Thu May 29 2025 04:33:03 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo - jwt expired
 Thu May 29 2025 04:33:15 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - itempedido is not associated to pedido!
+Thu May 29 2025 09:17:34 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - sequelize is not defined
+Thu May 29 2025 09:18:04 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - sequelize is not defined
+Thu May 29 2025 09:47:37 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - Cannot read properties of null (reading 'producto')
+Thu May 29 2025 09:51:45 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - Cannot read properties of null (reading 'producto')
+Thu May 29 2025 09:55:06 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - debug is not defined
+Thu May 29 2025 10:02:24 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - debug is not defined
+Thu May 29 2025 10:03:35 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - sequelize is not defined
+Thu May 29 2025 10:03:48 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - sequelize is not defined
+Thu May 29 2025 10:04:12 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - debug is not defined
+Thu May 29 2025 10:06:29 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - debug is not defined
+Thu May 29 2025 10:09:35 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - debug is not defined
+Thu May 29 2025 10:13:40 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - debug is not defined
+Thu May 29 2025 10:14:38 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - debug is not defined
