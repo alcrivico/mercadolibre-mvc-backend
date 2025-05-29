@@ -50,3 +50,5 @@ router.post(
   AuthorizeSelfOrAdmin,
   carrito.confirmarCarrito
 );
+
+module.exports = router;
