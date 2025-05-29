@@ -206,24 +206,72 @@ self.getItemsPedidoUsuario = async function (req, res, next) {
 
 // POST: api/usuarios/:email/pedidos - Crear un pedido directo (sin carrito)
 self.createPedidoDirecto = async function (req, res, next) {
+  const t = await sequelize.transaction();
   try {
-    const user = await usuario.findOne({ where: { email: req.params.email } });
+    const user = await usuario.findOne({
+      where: { email: req.params.email },
+      transaction: t,
+    });
     if (!user) return res.status(404).json({ error: "Usuario no encontrado" });
 
-    const nuevoPedido = await pedido.create({
-      usuarioid: user.id,
-      fecha: new Date(),
-      estado: req.body.estado || "pendiente",
-      total: req.body.total || 0,
-      direccionEnvio: req.body.direccionEnvio || "Sin dirección",
-      metodoPago: req.body.metodoPago || "Sin método",
-      esCarrito: false,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
+    // items debe venir en el body: [{productoid, cantidad, precioUnitario}]
+    const items = req.body.items;
+    if (!Array.isArray(items) || items.length === 0)
+      return res
+        .status(400)
+        .json({ error: "Debes enviar los items del pedido" });
 
+    // Restar stock y calcular total
+    let total = 0;
+    for (const item of items) {
+      const prod = await producto.findByPk(item.productoid, {
+        transaction: t,
+        lock: t.LOCK.UPDATE,
+      });
+      if (!prod)
+        throw new Error(`Producto con id ${item.productoid} no encontrado`);
+      if (prod.stock < item.cantidad)
+        throw new Error(`Stock insuficiente para el producto ${prod.titulo}`);
+      prod.stock -= item.cantidad;
+      await prod.save({ transaction: t });
+      total += item.cantidad * item.precioUnitario;
+    }
+
+    const nuevoPedido = await pedido.create(
+      {
+        usuarioid: user.id,
+        fecha: new Date(),
+        estado: req.body.estado || "pendiente",
+        total,
+        direccionEnvio: req.body.direccionEnvio || "Sin dirección",
+        metodoPago: req.body.metodoPago || "Sin método",
+        esCarrito: false,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      { transaction: t }
+    );
+
+    // Crear los items del pedido
+    for (const item of items) {
+      await itempedido.create(
+        {
+          pedidoid: nuevoPedido.id,
+          productoid: item.productoid,
+          cantidad: item.cantidad,
+          precioUnitario: item.precioUnitario,
+          subtotal: item.cantidad * item.precioUnitario,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        { transaction: t }
+      );
+    }
+
+    await t.commit();
     return res.status(201).json(nuevoPedido);
   } catch (error) {
+    await t.rollback();
     next(error);
   }
 };

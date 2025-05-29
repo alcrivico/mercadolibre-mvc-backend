@@ -36,3 +36,5 @@ Thu May 29 2025 00:18:41 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@u
 Thu May 29 2025 00:36:31 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - itempedido is not associated to pedido!
 Thu May 29 2025 00:43:40 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - itempedido is not associated to pedido!
 Thu May 29 2025 00:44:00 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - itempedido is not associated to pedido!
+Thu May 29 2025 01:13:37 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - notNull Violation: itempedido.precioUnitario cannot be null
+Thu May 29 2025 01:13:41 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - itempedido is not associated to pedido!

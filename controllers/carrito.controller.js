@@ -153,19 +153,39 @@ self.eliminarItemCarrito = async function (req, res, next) {
 
 // POST: api/usuarios/:email/carrito/confirmar - Confirmar carrito como pedido
 self.confirmarCarrito = async function (req, res, next) {
+  const t = await sequelize.transaction();
   try {
-    const user = await usuario.findOne({ where: { email: req.params.email } });
+    const user = await usuario.findOne({
+      where: { email: req.params.email },
+      transaction: t,
+    });
     if (!user) return res.status(404).json({ error: "Usuario no encontrado" });
 
     const carrito = await pedido.findOne({
       where: { usuarioid: user.id, esCarrito: true },
       include: [{ model: itempedido }],
+      transaction: t,
+      lock: t.LOCK.UPDATE,
     });
 
     if (!carrito)
       return res.status(404).json({ error: "Carrito no encontrado" });
     if (!carrito.itempedidos || carrito.itempedidos.length === 0)
       return res.status(400).json({ error: "El carrito está vacío" });
+
+    // Restar stock de cada producto
+    for (const item of carrito.itempedidos) {
+      const prod = await producto.findByPk(item.productoid, {
+        transaction: t,
+        lock: t.LOCK.UPDATE,
+      });
+      if (!prod)
+        throw new Error(`Producto con id ${item.productoid} no encontrado`);
+      if (prod.stock < item.cantidad)
+        throw new Error(`Stock insuficiente para el producto ${prod.titulo}`);
+      prod.stock -= item.cantidad;
+      await prod.save({ transaction: t });
+    }
 
     // Actualiza el estado y total
     carrito.estado = "pendiente";
@@ -175,10 +195,12 @@ self.confirmarCarrito = async function (req, res, next) {
       0
     );
     carrito.fecha = new Date();
-    await carrito.save();
+    await carrito.save({ transaction: t });
 
+    await t.commit();
     return res.status(200).json(carrito);
   } catch (error) {
+    await t.rollback();
     next(error);
   }
 };
