@@ -106,14 +106,24 @@ self.create = async function (req, res, next) {
       throw new Error(JSON.stringify(errors));
     }
 
+    // validar que no pueda hacer poner un stock negativo o mayor a un valor máximo de la cantidad soportada por Number.MAX_SAFE_INTEGER
+    if (
+      req.body.stock !== undefined &&
+      (req.body.stock < 0 || req.body.stock > Number.MAX_SAFE_INTEGER)
+    ) {
+      return res.status(400).json({
+        error: `El stock debe ser un número entre 0 y ${Number.MAX_SAFE_INTEGER}.`,
+      });
+    }
+
     let data = await producto.create({
       titulo: req.body.titulo,
       description: req.body.description,
       precio: req.body.precio,
+      stock: req.body.stock || 0,
       archivoid: req.body.archivoid || null,
     });
-    req.bitacora;
-    "producto.crear", data.id;
+    req.bitacora("producto.crear", data.id);
     return res.status(201).json(data);
   } catch (error) {
     next(error);
@@ -130,6 +140,17 @@ self.update = async function (req, res, next) {
 
     let id = req.params.id;
     let body = req.body;
+
+    // validar que no pueda hacer poner un stock negativo o mayor a un valor máximo de la cantidad soportada por Number.MAX_SAFE_INTEGER
+    if (
+      body.stock !== undefined &&
+      (body.stock < 0 || body.stock > Number.MAX_SAFE_INTEGER)
+    ) {
+      return res.status(400).json({
+        error: `El stock debe ser un número entre 0 y ${Number.MAX_SAFE_INTEGER}.`,
+      });
+    }
+
     let data = await producto.update(body, {
       where: { id: id },
     });

@@ -10,6 +10,7 @@ module.exports = {
         description:
           'El Toshiba OLED Smart TV 42" 4K UHD 2023 es un producto de última tecnología que te permitirá disfrutar de una experiencia visual inigualable. Este modelo cuenta con una pantalla OLED de 42 pulgadas con resolución 4K UHD, lo que te permitirá ver tus contenidos favoritos con una calidad de imagen excepcional.',
         precio: 13880,
+        stock: 10,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -20,6 +21,7 @@ module.exports = {
         description:
           'Pantalla AMOLED 6.43" Full HD. Cámara cuádruple 64 Mpx. Batería 5000 mAh con carga rápida.',
         precio: 2009,
+        stock: 15,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -30,6 +32,7 @@ module.exports = {
         description:
           "La notebook más delgada y ligera de Apple viene con los superpoderes del chip M1. Termina todos tus proyectos mucho más rápido con el CPU de 8 núcleos y disfruta como nunca antes de apps y juegos con gráficos avanzados gracias al GPU de hasta 8 núcleos. Además, el Neural Engine de 16 núcleos se encarga de acelerar todos los procesos de aprendizaje automático.",
         precio: 25999,
+        stock: 5,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -40,6 +43,7 @@ module.exports = {
         description:
           "Hamilton Beach es la combinación ideal de potencia y funcionalidad. Con 350 watts de potencia, podrás preparar cualquier receta, y gracias a sus 4 velocidades (2 continuas y 2 pulsos), elegir el grado de licuado de tus alimentos. Ideal para preparar desde una crema hasta una salsa tipo majada o un smoothie para comenzar el día.",
         precio: 365,
+        stock: 20,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -50,6 +54,7 @@ module.exports = {
         description:
           "La selección de una silla adecuada es crucial para prevenir los dolores futuros con esta silla Styrka, disfrutarás de la comodidad y el bienestar necesario durante tu jornada laboral. Su diseño permite que se integre fácilmente en cualquier espacio de tu casa u oficina, aportando un estilo moderno.",
         precio: 1957,
+        stock: 5,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -59,6 +64,7 @@ module.exports = {
         description:
           "Esta bolsa no solo es versátil y elegante, sino que también ofrece una sensación táctil excepcional gracias a su textura increíble.",
         precio: 427,
+        stock: 10,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -69,6 +75,7 @@ module.exports = {
         description:
           "Encuentra en el F5-1998 la calidad e innovación que Rollers puede brindar. Disfruta de tus momentos de entrenamiento y juego, así como de diversión, con una pelota que es ideal para ti.",
         precio: 521.26,
+        stock: 15,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -78,6 +85,7 @@ module.exports = {
         description:
           "Elegante lámpara de cristal: esta pantalla está hecha de varias piezas de cristal brillante, el diseño cristalino del elegante juego de millones de facetas es un complemento cómodo y moderno, más bonito y con mejor transmisión de la luz.",
         precio: 142.08,
+        stock: 10,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -87,6 +95,7 @@ module.exports = {
         description:
           "Protege tu privacidad destruyendo los documentos que contengan información confidencial con la Destructora Momentum PX12-86. Gracias a su corte cruzado, tritura cada documento en pequeñas tiras, evitando que tus datos caigan en manos equivocadas.",
         precio: 2923.29,
+        stock: 5,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -96,6 +105,7 @@ module.exports = {
         description:
           "¡Buen provecho! Aquí viene el Nuevo Repartidor de Pizzas. No es solamente un juguete para niños y niñas de 3 a 5 años. Es, además, un juguete Play-Doh con temática de pizzas que les permitirá crear y repartir su propia comida de juguete.",
         precio: 2454.68,
+        stock: 10,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -105,6 +115,7 @@ module.exports = {
         description:
           "Una silla alta tipo periquera es la mejor forma de permitir a los pequeños compartir la hora de la comida con toda la familia. Deja que tu bebé se siente a la mesa y gane confianza para aprender a alimentarse por sí mismo. Incluye bandeja para comer desmontable y arnés de seguridad.",
         precio: 1999,
+        stock: 8,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -114,6 +125,7 @@ module.exports = {
         description:
           "El peso corporal no es lo único que muestra esta báscula, otros datos de composición corporal, incluidos el peso, el IMC y el porcentaje de grasa corporal almacenado en la aplicación.",
         precio: 380.13,
+        stock: 12,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -123,6 +135,7 @@ module.exports = {
         description:
           "Sé protagonista con la ayuda del Labial MAC. Para el día o la noche, con un nude delicado o un rojo vibrante, vive el color sin necesidad de retoques. ¡Son perfectos para cualquier ocasión!.",
         precio: 559,
+        stock: 20,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -132,6 +145,7 @@ module.exports = {
         description:
           "Acelera a través de las pistas del Reino Champiñón, bajo el agua, en el cielo, de cabeza y sin frenos, y llega a la meta para obtener la victoria! Programa motores en el modo Multijugador local, en los torneos en línea del Juego, en el modo batalla que ha sido mejorado ¡y más!.",
         precio: 849,
+        stock: 10,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -141,6 +155,7 @@ module.exports = {
         description:
           "Nescafé Taster's Choice Colombia ofrece una experiencia sensorial única, proporcionando un balance perfecto en cada taza. Elaborado con altos estándares de calidad y una mezcla de granos únicos, este café soluble mantiene un sabor, aroma y cuerpo distintivos gracias a su proceso de liofilización, que resalta las notas más puras del café al evitar el uso de altas temperaturas.",
         precio: 232.1,
+        stock: 45,
         createdAt: new Date(),
         updatedAt: new Date(),
       },

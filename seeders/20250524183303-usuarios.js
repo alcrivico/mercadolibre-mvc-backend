@@ -23,6 +23,8 @@ module.exports = {
       },
     ]);
 
+    const patitoUUID = crypto.randomUUID();
+
     await queryInterface.bulkInsert("usuario", [
       {
         id: crypto.randomUUID(),
@@ -35,7 +37,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        id: crypto.randomUUID(),
+        id: patitoUUID,
         email: "patito@uv.mx",
         passwordhash: await bcrypt.hash("patito", 10),
         nombre: "Usuario patito",
@@ -44,9 +46,24 @@ module.exports = {
         updatedAt: new Date(),
       },
     ]);
+
+    await queryInterface.bulkInsert("pedido", [
+      {
+        usuarioid: patitoUUID,
+        fecha: new Date(),
+        estado: "carrito",
+        total: 0,
+        direccionEnvio: "Sin dirección",
+        metodoPago: "Sin método",
+        esCarrito: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    ]);
   },
 
   async down(queryInterface, Sequelize) {
+    await queryInterface.bulkDelete("pedido", null, {});
     await queryInterface.bulkDelete("usuario", null, {});
     await queryInterface.bulkDelete("rol", null, {});
   },
