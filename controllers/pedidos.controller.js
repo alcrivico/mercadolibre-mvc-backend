@@ -134,4 +134,124 @@ self.delete = async function (req, res, next) {
   }
 };
 
+// GET: api/usuarios/:email/pedidos - Listar todos los pedidos del usuario (excepto carrito)
+self.getPedidosUsuario = async function (req, res, next) {
+  try {
+    const user = await usuario.findOne({ where: { email: req.params.email } });
+    if (!user) return res.status(404).json({ error: "Usuario no encontrado" });
+
+    const pedidosUsuario = await pedido.findAll({
+      where: {
+        usuarioid: user.id,
+        esCarrito: false,
+      },
+      order: [["fecha", "DESC"]],
+    });
+
+    return res.status(200).json(pedidosUsuario);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// GET: api/usuarios/:email/pedidos/:pedidoid - Obtener un pedido específico del usuario
+self.getPedidoUsuario = async function (req, res, next) {
+  try {
+    const user = await usuario.findOne({ where: { email: req.params.email } });
+    if (!user) return res.status(404).json({ error: "Usuario no encontrado" });
+
+    const pedidoUsuario = await pedido.findOne({
+      where: {
+        id: req.params.pedidoid,
+        usuarioid: user.id,
+        esCarrito: false,
+      },
+    });
+
+    if (!pedidoUsuario)
+      return res.status(404).json({ error: "Pedido no encontrado" });
+    return res.status(200).json(pedidoUsuario);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// GET: api/usuarios/:email/pedidos/:pedidoid/items - Listar los items de un pedido específico del usuario
+self.getItemsPedidoUsuario = async function (req, res, next) {
+  try {
+    const user = await usuario.findOne({ where: { email: req.params.email } });
+    if (!user) return res.status(404).json({ error: "Usuario no encontrado" });
+
+    const pedidoUsuario = await pedido.findOne({
+      where: {
+        id: req.params.pedidoid,
+        usuarioid: user.id,
+        esCarrito: false,
+      },
+    });
+
+    if (!pedidoUsuario)
+      return res.status(404).json({ error: "Pedido no encontrado" });
+
+    const items = await itempedido.findAll({
+      where: { pedidoid: pedidoUsuario.id },
+      include: [{ model: producto }],
+    });
+
+    return res.status(200).json(items);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// POST: api/usuarios/:email/pedidos - Crear un pedido directo (sin carrito)
+self.createPedidoDirecto = async function (req, res, next) {
+  try {
+    const user = await usuario.findOne({ where: { email: req.params.email } });
+    if (!user) return res.status(404).json({ error: "Usuario no encontrado" });
+
+    const nuevoPedido = await pedido.create({
+      usuarioid: user.id,
+      fecha: new Date(),
+      estado: req.body.estado || "pendiente",
+      total: req.body.total || 0,
+      direccionEnvio: req.body.direccionEnvio || "Sin dirección",
+      metodoPago: req.body.metodoPago || "Sin método",
+      esCarrito: false,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+
+    return res.status(201).json(nuevoPedido);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// DELETE: api/usuarios/:email/pedidos/:pedidoid - Cancelar un pedido del usuario
+self.cancelarPedidoUsuario = async function (req, res, next) {
+  try {
+    const user = await usuario.findOne({ where: { email: req.params.email } });
+    if (!user) return res.status(404).json({ error: "Usuario no encontrado" });
+
+    const pedidoUsuario = await pedido.findOne({
+      where: {
+        id: req.params.pedidoid,
+        usuarioid: user.id,
+        esCarrito: false,
+      },
+    });
+
+    if (!pedidoUsuario)
+      return res.status(404).json({ error: "Pedido no encontrado" });
+
+    pedidoUsuario.estado = "cancelado";
+    await pedidoUsuario.save();
+
+    return res.status(204).send();
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = self;
