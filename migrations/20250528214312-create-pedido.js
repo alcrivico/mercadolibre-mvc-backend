@@ -71,10 +71,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.removeConstraint(
-      "pedido",
-      "unico_carrito_por_usuario"
-    );
     await queryInterface.dropTable("pedido");
   },
 };

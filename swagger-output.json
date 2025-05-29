@@ -206,7 +206,7 @@
                 "titulo": {
                   "example": "any"
                 },
-                "description": {
+                "descripcion": {
                   "example": "any"
                 },
                 "precio": {
@@ -274,6 +274,9 @@
             "schema": {
               "type": "object",
               "properties": {
+                "archivoid": {
+                  "example": "any"
+                },
                 "stock": {
                   "example": "any"
                 }

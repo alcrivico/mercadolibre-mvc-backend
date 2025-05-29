@@ -12,7 +12,7 @@ self.productoValidator = [
     .withMessage("El campo {0} es obligatorio")
     .isString()
     .withMessage("El campo {0} debe ser texto"),
-  body("description")
+  body("descripcion")
     .not()
     .isEmpty()
     .withMessage("El campo {0} es obligatorio")
@@ -45,7 +45,7 @@ self.getAll = async function (req, res, next) {
       attributes: [
         ["id", "productoId"],
         "titulo",
-        "description",
+        "descripcion",
         "precio",
         "archivoid",
       ],
@@ -74,7 +74,7 @@ self.get = async function (req, res, next) {
       attributes: [
         ["id", "productoId"],
         "titulo",
-        "description",
+        "descripcion",
         "precio",
         "archivoid",
       ],
@@ -118,7 +118,7 @@ self.create = async function (req, res, next) {
 
     let data = await producto.create({
       titulo: req.body.titulo,
-      description: req.body.description,
+      descripcion: req.body.descripcion,
       precio: req.body.precio,
       stock: req.body.stock || 0,
       archivoid: req.body.archivoid || null,
@@ -135,16 +135,29 @@ self.update = async function (req, res, next) {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      throw new Error(JSON.stringify(errors));
+      return res.status(400).json({ errors: errors.array() });
     }
 
     let id = req.params.id;
     let body = req.body;
 
-    // validar que no pueda hacer poner un stock negativo o mayor a un valor máximo de la cantidad soportada por Number.MAX_SAFE_INTEGER
+    // Validar archivoid si viene en el body
+    if (body.archivoid !== undefined) {
+      let archivoid = parseInt(body.archivoid, 10);
+      if (isNaN(archivoid) || archivoid < 0) {
+        return res.status(400).json({
+          error: "El campo archivoid debe ser un número entero positivo.",
+        });
+      }
+      body.archivoid = archivoid;
+    }
+
+    // Validar stock
     if (
       body.stock !== undefined &&
-      (body.stock < 0 || body.stock > Number.MAX_SAFE_INTEGER)
+      (isNaN(body.stock) ||
+        body.stock < 0 ||
+        body.stock > Number.MAX_SAFE_INTEGER)
     ) {
       return res.status(400).json({
         error: `El stock debe ser un número entre 0 y ${Number.MAX_SAFE_INTEGER}.`,

@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.STRING,
         defaultValue: "Sin título",
       },
-      description: {
+      descripcion: {
         type: Sequelize.TEXT,
         defaultValue: "Sin descripcion",
       },

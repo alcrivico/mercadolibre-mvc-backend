@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         defaultValue: "Sin título",
       },
-      description: {
+      descripcion: {
         type: DataTypes.TEXT,
         defaultValue: "Sin descripcion",
       },
