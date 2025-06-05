@@ -78,28 +78,39 @@ self.getItemsCarrito = async function (req, res, next) {
 
 // POST: api/usuarios/:email/carrito/items - Agregar un item al carrito
 self.agregarItemCarrito = async function (req, res, next) {
+  const t = await require("../models").sequelize.transaction();
   try {
-    const user = await usuario.findOne({ where: { email: req.params.email } });
-    if (!user) return res.status(404).json({ error: "Usuario no encontrado" });
+    const user = await usuario.findOne({
+      where: { email: req.params.email },
+      transaction: t,
+    });
+    if (!user) {
+      await t.rollback();
+      return res.status(404).json({ error: "Usuario no encontrado" });
+    }
 
     let carrito = await pedido.findOne({
       where: { usuarioid: user.id, esCarrito: true },
+      transaction: t,
     });
 
     console.log("Carrito encontrado:", carrito);
 
     if (!carrito) {
-      carrito = await pedido.create({
-        usuarioid: user.id,
-        fecha: new Date(),
-        estado: "carrito",
-        total: 0,
-        direccionEnvio: "Sin dirección",
-        metodoPago: "Sin método",
-        esCarrito: true,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      });
+      carrito = await pedido.create(
+        {
+          usuarioid: user.id,
+          fecha: new Date(),
+          estado: "carrito",
+          total: 0,
+          direccionEnvio: "Sin dirección",
+          metodoPago: "Sin método",
+          esCarrito: true,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        { transaction: t }
+      );
     }
 
     // Verifica si el producto ya está en el carrito
@@ -108,17 +119,24 @@ self.agregarItemCarrito = async function (req, res, next) {
         productoid: req.body.productoid,
       },
       include: [{ model: producto }],
+      transaction: t,
+      lock: t.LOCK.UPDATE,
     });
     console.log("Item encontrado:", item);
 
-    const productoExistente = await producto.findByPk(req.body.productoid);
+    const productoExistente = await producto.findByPk(req.body.productoid, {
+      transaction: t,
+      lock: t.LOCK.UPDATE,
+    });
 
     if (!productoExistente) {
+      await t.rollback();
       return res.status(404).json({ error: "Producto no encontrado" });
     }
 
     // Verifica si el stock es suficiente
     if (productoExistente.stock < req.body.cantidad) {
+      await t.rollback();
       return res.status(400).json({ error: "Stock insuficiente" });
     }
 
@@ -126,6 +144,7 @@ self.agregarItemCarrito = async function (req, res, next) {
       console.log("Item ya existe en el carrito:", item);
 
       if (!(item.cantidad + req.body.cantidad <= productoExistente.stock)) {
+        await t.rollback();
         return res
           .status(400)
           .json({ error: "Stock insuficiente para el item" });
@@ -133,23 +152,40 @@ self.agregarItemCarrito = async function (req, res, next) {
       item.cantidad += req.body.cantidad || 1;
       item.subtotal =
         item.cantidad * (req.body.precioUnitario || item.precioUnitario);
-      await item.save();
+      await item.save({ transaction: t });
     } else {
       console.log("Creando nuevo item en el carrito");
       // Si no existe, lo crea
-      item = await itempedido.create({
-        pedidoid: carrito.id,
-        productoid: req.body.productoid,
-        cantidad: req.body.cantidad || 1,
-        precioUnitario: req.body.precioUnitario,
-        subtotal: (req.body.cantidad || 1) * req.body.precioUnitario,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      });
+      item = await itempedido.create(
+        {
+          pedidoid: carrito.id,
+          productoid: req.body.productoid,
+          cantidad: req.body.cantidad || 1,
+          precioUnitario: req.body.precioUnitario,
+          subtotal: (req.body.cantidad || 1) * req.body.precioUnitario,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        { transaction: t }
+      );
     }
 
+    // Actualiza el total del carrito
+    const itemsActuales = await itempedido.findAll({
+      where: { pedidoid: carrito.id },
+      transaction: t,
+    });
+    carrito.total = itemsActuales.reduce((sum, it) => sum + it.subtotal, 0);
+    await carrito.save({ transaction: t });
+
+    // Resta del stock la cantidad agregada
+    productoExistente.stock -= req.body.cantidad;
+    await productoExistente.save({ transaction: t });
+
+    await t.commit();
     return res.status(201).json(item);
   } catch (error) {
+    await t.rollback();
     debug.write("Error al agregar item al carrito:", error);
     next(error);
   }
@@ -157,41 +193,115 @@ self.agregarItemCarrito = async function (req, res, next) {
 
 // PUT: api/usuarios/:email/carrito/items/:itemid - Modificar cantidad de un item en el carrito
 self.modificarItemCarrito = async function (req, res, next) {
+  const t = await require("../models").sequelize.transaction();
   try {
-    let item = await itempedido.findOne({
-      where: {
-        pedidoid: req.params.itemid,
-      },
+    // Buscar el item por su id
+    let item = await itempedido.findByPk(req.params.itemid, {
       include: [{ model: producto }],
+      transaction: t,
+      lock: t.LOCK.UPDATE,
     });
 
-    if (!item) return res.status(404).json({ error: "Item no encontrado" });
+    if (!item) {
+      await t.rollback();
+      return res.status(404).json({ error: "Item no encontrado" });
+    }
 
-    if (item.producto && item.producto.stock < (req.body.cantidad || 1)) {
+    // Buscar el carrito
+    const carrito = await pedido.findByPk(item.pedidoid, { transaction: t });
+    if (!carrito) {
+      await t.rollback();
+      return res.status(404).json({ error: "Carrito no encontrado" });
+    }
+
+    // Buscar el producto y ajustar stock
+    const prod = await producto.findByPk(item.productoid, {
+      transaction: t,
+      lock: t.LOCK.UPDATE,
+    });
+    if (!prod) {
+      await t.rollback();
+      return res.status(404).json({ error: "Producto no encontrado" });
+    }
+
+    // Calcular diferencia de cantidad
+    const nuevaCantidad = req.body.cantidad;
+    const diferencia = nuevaCantidad - item.cantidad;
+
+    // Validar stock suficiente si se aumenta la cantidad
+    if (diferencia > 0 && prod.stock < diferencia) {
+      await t.rollback();
       return res.status(400).json({ error: "Stock insuficiente" });
     }
 
-    if (req.body.cantidad !== undefined) {
-      item.cantidad = req.body.cantidad;
-      item.subtotal = item.cantidad * item.precioUnitario;
-      await item.save();
-    }
+    // Actualizar stock del producto
+    prod.stock -= diferencia;
+    await prod.save({ transaction: t });
 
+    // Actualizar item
+    item.cantidad = nuevaCantidad;
+    item.subtotal = item.cantidad * item.precioUnitario;
+    await item.save({ transaction: t });
+
+    // Actualizar total del carrito
+    const itemsActuales = await itempedido.findAll({
+      where: { pedidoid: carrito.id },
+      transaction: t,
+    });
+    carrito.total = itemsActuales.reduce((sum, it) => sum + it.subtotal, 0);
+    await carrito.save({ transaction: t });
+
+    await t.commit();
     return res.status(200).json(item);
   } catch (error) {
+    if (t) await t.rollback();
     next(error);
   }
 };
 
 // DELETE: api/usuarios/:email/carrito/items/:itemid - Eliminar un item del carrito
 self.eliminarItemCarrito = async function (req, res, next) {
+  const t = await require("../models").sequelize.transaction();
   try {
-    const item = await itempedido.findByPk(req.params.itemid);
-    if (!item) return res.status(404).json({ error: "Item no encontrado" });
+    const item = await itempedido.findByPk(req.params.itemid, {
+      transaction: t,
+    });
+    if (!item) {
+      await t.rollback();
+      return res.status(404).json({ error: "Item no encontrado" });
+    }
 
-    await item.destroy();
+    // Busca el carrito al que pertenece el item
+    const carrito = await pedido.findByPk(item.pedidoid, { transaction: t });
+    if (!carrito) {
+      await t.rollback();
+      return res.status(404).json({ error: "Carrito no encontrado" });
+    }
+
+    // Busca el producto y devuelve el stock
+    const prod = await producto.findByPk(item.productoid, {
+      transaction: t,
+      lock: t.LOCK.UPDATE,
+    });
+    if (prod) {
+      prod.stock += item.cantidad;
+      await prod.save({ transaction: t });
+    }
+
+    // Guarda el subtotal antes de eliminar
+    const subtotalEliminado = item.subtotal;
+
+    // Elimina el item
+    await item.destroy({ transaction: t });
+
+    // Resta el subtotal al total del carrito y guarda
+    carrito.total = Math.max(0, carrito.total - subtotalEliminado);
+    await carrito.save({ transaction: t });
+
+    await t.commit();
     return res.status(204).send();
   } catch (error) {
+    if (t) await t.rollback();
     next(error);
   }
 };

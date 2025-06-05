@@ -131,3 +131,13 @@ Thu May 29 2025 10:06:29 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@u
 Thu May 29 2025 10:09:35 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - debug is not defined
 Thu May 29 2025 10:13:40 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - debug is not defined
 Thu May 29 2025 10:14:38 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - debug is not defined
+Thu May 29 2025 13:30:47 GMT-0600 (Central Standard Time) - 500 - ::1 - Anónimo - Access denied for user 'mercadolibre_user'@'localhost' (using password: YES)
+Thu May 29 2025 13:32:44 GMT-0600 (Central Standard Time) - 500 - ::1 - Anónimo - Access denied for user 'mercadolibre_user'@'localhost' (using password: YES)
+Thu May 29 2025 13:32:50 GMT-0600 (Central Standard Time) - 500 - ::1 - Anónimo - Access denied for user 'mercadolibre_user'@'localhost' (using password: YES)
+Thu May 29 2025 13:34:55 GMT-0600 (Central Standard Time) - 500 - ::1 - Anónimo - Access denied for user 'mercadolibre_user'@'localhost' (using password: YES)
+Thu May 29 2025 13:35:45 GMT-0600 (Central Standard Time) - 500 - ::1 - Anónimo - Access denied for user 'mercadolibre_user'@'localhost' (using password: YES)
+Thu Jun 05 2025 10:32:52 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo - jwt expired
+Thu Jun 05 2025 12:00:48 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo - jwt expired
+Thu Jun 05 2025 12:55:58 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo - jwt expired
+Thu Jun 05 2025 14:04:17 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - debug is not defined
+Thu Jun 05 2025 14:07:03 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - debug is not defined
