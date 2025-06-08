@@ -60,15 +60,6 @@ module.exports = {
         type: Sequelize.DATE,
       },
     });
-
-    await queryInterface.addConstraint("pedido", {
-      fields: ["usuarioid"],
-      type: "unique",
-      name: "unico_carrito_por_usuario",
-      where: {
-        esCarrito: true,
-      },
-    });
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable("pedido");

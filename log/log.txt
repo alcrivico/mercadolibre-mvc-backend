@@ -141,3 +141,23 @@ Thu Jun 05 2025 12:00:48 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo
 Thu Jun 05 2025 12:55:58 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo - jwt expired
 Thu Jun 05 2025 14:04:17 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - debug is not defined
 Thu Jun 05 2025 14:07:03 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - debug is not defined
+Sat Jun 07 2025 11:34:00 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - itempedido is not associated to pedido!
+Sat Jun 07 2025 11:34:00 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - itempedido is not associated to pedido!
+Sat Jun 07 2025 11:34:39 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - itempedido is not associated to pedido!
+Sat Jun 07 2025 11:49:23 GMT-0600 (Central Standard Time) - 500 - ::1 - gvera@uv.mx - itempedido is not associated to pedido!
+Sat Jun 07 2025 11:49:23 GMT-0600 (Central Standard Time) - 500 - ::1 - gvera@uv.mx - itempedido is not associated to pedido!
+Sat Jun 07 2025 12:16:19 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo - jwt expired
+Sat Jun 07 2025 12:16:19 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo - Acceso denegado
+Sat Jun 07 2025 13:10:04 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - sequelize is not defined
+Sat Jun 07 2025 13:14:31 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - sequelize is not defined
+Sat Jun 07 2025 13:14:50 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - sequelize is not defined
+Sat Jun 07 2025 13:16:02 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - sequelize is not defined
+Sat Jun 07 2025 13:16:08 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - sequelize is not defined
+Sat Jun 07 2025 13:29:43 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - sequelize is not defined
+Sat Jun 07 2025 13:34:58 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - sequelize is not defined
+Sat Jun 07 2025 13:43:36 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - user is not defined
+Sat Jun 07 2025 13:46:24 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - user is not defined
+Sat Jun 07 2025 13:49:50 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - user is not defined
+Sat Jun 07 2025 13:50:10 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - user is not defined
+Sat Jun 07 2025 13:52:45 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo - Acceso denegado
+Sat Jun 07 2025 13:52:55 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo - Acceso denegado

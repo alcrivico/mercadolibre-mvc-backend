@@ -1,4 +1,10 @@
-const { pedido, usuario, Sequelize } = require("../models");
+const {
+  pedido,
+  usuario,
+  producto,
+  itempedido,
+  Sequelize,
+} = require("../models");
 
 let self = {};
 
@@ -206,36 +212,50 @@ self.getItemsPedidoUsuario = async function (req, res, next) {
 
 // POST: api/usuarios/:email/pedidos - Crear un pedido directo (sin carrito)
 self.createPedidoDirecto = async function (req, res, next) {
-  const t = await sequelize.transaction();
+  console.log("BODY RECIBIDO:", req.body);
+  const t = await require("../models").sequelize.transaction();
   try {
+    console.log("BODY RECIBIDO:", req.body);
     const user = await usuario.findOne({
       where: { email: req.params.email },
       transaction: t,
     });
-    if (!user) return res.status(404).json({ error: "Usuario no encontrado" });
+    console.log("USUARIO:", user);
+    if (!user) {
+      await t.rollback();
+      return res.status(404).json({ error: "Usuario no encontrado" });
+    }
 
-    // items debe venir en el body: [{productoid, cantidad, precioUnitario}]
-    const items = req.body.items;
-    if (!Array.isArray(items) || items.length === 0)
-      return res
-        .status(400)
-        .json({ error: "Debes enviar los items del pedido" });
+    // El item debe venir en el body: { productoid, cantidad, precioUnitario }
+    const item = req.body.item;
+    console.log("ITEM RECIBIDO:", item);
+    if (!item || !item.productoid || !item.cantidad || !item.precioUnitario) {
+      await t.rollback();
+      return res.status(400).json({ error: "Faltan datos del item" });
+    }
 
     // Restar stock y calcular total
-    let total = 0;
-    for (const item of items) {
-      const prod = await producto.findByPk(item.productoid, {
-        transaction: t,
-        lock: t.LOCK.UPDATE,
-      });
-      if (!prod)
-        throw new Error(`Producto con id ${item.productoid} no encontrado`);
-      if (prod.stock < item.cantidad)
-        throw new Error(`Stock insuficiente para el producto ${prod.titulo}`);
-      prod.stock -= item.cantidad;
-      await prod.save({ transaction: t });
-      total += item.cantidad * item.precioUnitario;
+    const prod = await producto.findByPk(item.productoid, {
+      transaction: t,
+      lock: t.LOCK.UPDATE,
+    });
+    console.log("PRODUCTO:", prod);
+    if (!prod) {
+      await t.rollback();
+      return res
+        .status(404)
+        .json({ error: `Producto con id ${item.productoid} no encontrado` });
     }
+    if (prod.stock < item.cantidad) {
+      await t.rollback();
+      return res
+        .status(400)
+        .json({ error: `Stock insuficiente para el producto ${prod.titulo}` });
+    }
+    prod.stock -= item.cantidad;
+    await prod.save({ transaction: t });
+
+    const total = item.cantidad * item.precioUnitario;
 
     const nuevoPedido = await pedido.create(
       {
@@ -251,28 +271,30 @@ self.createPedidoDirecto = async function (req, res, next) {
       },
       { transaction: t }
     );
+    console.log("NUEVO PEDIDO:", nuevoPedido);
 
-    // Crear los items del pedido
-    for (const item of items) {
-      await itempedido.create(
-        {
-          pedidoid: nuevoPedido.id,
-          productoid: item.productoid,
-          cantidad: item.cantidad,
-          precioUnitario: item.precioUnitario,
-          subtotal: item.cantidad * item.precioUnitario,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        { transaction: t }
-      );
-    }
+    // Crear el único item del pedido
+    await itempedido.create(
+      {
+        pedidoid: nuevoPedido.id,
+        productoid: item.productoid,
+        cantidad: item.cantidad,
+        precioUnitario: item.precioUnitario,
+        subtotal: total,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      { transaction: t }
+    );
+    console.log("ITEMPEDIDO CREADO");
 
     await t.commit();
+    console.log("COMMIT OK");
     return res.status(201).json(nuevoPedido);
   } catch (error) {
-    await t.rollback();
-    next(error);
+    if (t) await t.rollback();
+    console.error("ERROR EN PEDIDO:", error);
+    res.status(400).json({ error: error.message || "Error inesperado" });
   }
 };
 

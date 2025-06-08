@@ -178,10 +178,6 @@ self.agregarItemCarrito = async function (req, res, next) {
     carrito.total = itemsActuales.reduce((sum, it) => sum + it.subtotal, 0);
     await carrito.save({ transaction: t });
 
-    // Resta del stock la cantidad agregada
-    productoExistente.stock -= req.body.cantidad;
-    await productoExistente.save({ transaction: t });
-
     await t.commit();
     return res.status(201).json(item);
   } catch (error) {
@@ -234,10 +230,6 @@ self.modificarItemCarrito = async function (req, res, next) {
       return res.status(400).json({ error: "Stock insuficiente" });
     }
 
-    // Actualizar stock del producto
-    prod.stock -= diferencia;
-    await prod.save({ transaction: t });
-
     // Actualizar item
     item.cantidad = nuevaCantidad;
     item.subtotal = item.cantidad * item.precioUnitario;
@@ -276,16 +268,6 @@ self.eliminarItemCarrito = async function (req, res, next) {
     if (!carrito) {
       await t.rollback();
       return res.status(404).json({ error: "Carrito no encontrado" });
-    }
-
-    // Busca el producto y devuelve el stock
-    const prod = await producto.findByPk(item.productoid, {
-      transaction: t,
-      lock: t.LOCK.UPDATE,
-    });
-    if (prod) {
-      prod.stock += item.cantidad;
-      await prod.save({ transaction: t });
     }
 
     // Guarda el subtotal antes de eliminar
@@ -356,6 +338,7 @@ self.confirmarCarrito = async function (req, res, next) {
     return res.status(200).json(carrito);
   } catch (error) {
     await t.rollback();
+    console.error("ERROR EN PEDIDO:", error);
     next(error);
   }
 };
