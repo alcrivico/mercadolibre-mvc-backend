@@ -48,8 +48,13 @@ app.get("/*splat", (req, res) => {
 const errorhandler = require("./middlewares/errorhandler.middleware");
 app.use(errorhandler);
 
-// Start server
-const PORT = process.env.SERVER_PORT;
-app.listen(PORT, () => {
-  console.log(`Aplicación escuchando en el puerto ${PORT}`);
-});
+// Start server using JEST COnfig
+if (require.main === module) {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log(`Servidor corriendo en el puerto ${PORT}`);
+  });
+}
+
+// Export the app for testing purposes
+module.exports = app;

@@ -118,3 +118,36 @@ Thu May 29 2025 04:33:03 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo
 Thu May 29 2025 04:33:03 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo - jwt expired
 Thu May 29 2025 04:33:03 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo - jwt expired
 Thu May 29 2025 04:33:15 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - itempedido is not associated to pedido!
+Thu May 29 2025 08:23:54 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - sequelize is not defined
+Thu May 29 2025 08:25:42 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - sequelize is not defined
+Thu May 29 2025 08:26:13 GMT-0600 (Central Standard Time) - 500 - ::1 - patito@uv.mx - sequelize is not defined
+Thu May 29 2025 08:30:36 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo - jwt expired
+Thu May 29 2025 08:31:11 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo - invalid signature
+Thu May 29 2025 08:31:20 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo - Acceso denegado
+Thu May 29 2025 08:31:43 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo - invalid signature
+Thu May 29 2025 08:32:24 GMT-0600 (Central Standard Time) - 401 - ::1 - Anónimo - invalid signature
+Thu May 29 2025 10:29:27 GMT-0600 (Central Standard Time) - 401 - ::ffff:127.0.0.1 - Anónimo - Acceso denegado
+Thu May 29 2025 10:33:57 GMT-0600 (Central Standard Time) - 401 - ::ffff:127.0.0.1 - Anónimo - Acceso denegado
+Thu May 29 2025 10:34:46 GMT-0600 (Central Standard Time) - 401 - ::ffff:127.0.0.1 - Anónimo - Acceso denegado
+Thu May 29 2025 10:37:58 GMT-0600 (Central Standard Time) - 401 - ::ffff:127.0.0.1 - Anónimo - Acceso denegado
+Thu May 29 2025 10:40:41 GMT-0600 (Central Standard Time) - 401 - ::ffff:127.0.0.1 - Anónimo - Acceso denegado
+Thu May 29 2025 10:40:56 GMT-0600 (Central Standard Time) - 401 - ::ffff:127.0.0.1 - Anónimo - Acceso denegado
+Thu May 29 2025 10:42:12 GMT-0600 (Central Standard Time) - 401 - ::ffff:127.0.0.1 - Anónimo - Acceso denegado
+Thu May 29 2025 10:52:44 GMT-0600 (Central Standard Time) - 401 - ::ffff:127.0.0.1 - Anónimo - Acceso denegado
+Thu May 29 2025 10:53:18 GMT-0600 (Central Standard Time) - 401 - ::ffff:127.0.0.1 - Anónimo - Acceso denegado
+Thu May 29 2025 10:54:46 GMT-0600 (Central Standard Time) - 401 - ::ffff:127.0.0.1 - Anónimo - Acceso denegado
+Thu May 29 2025 11:17:52 GMT-0600 (Central Standard Time) - 500 - ::ffff:127.0.0.1 - Anónimo - No se ha podido procesar la petición. Inténtelo nuevamente más tarde.
+Thu May 29 2025 11:18:17 GMT-0600 (Central Standard Time) - 500 - ::ffff:127.0.0.1 - Anónimo - No se ha podido procesar la petición. Inténtelo nuevamente más tarde.
+Thu May 29 2025 11:46:27 GMT-0600 (Central Standard Time) - 401 - ::ffff:127.0.0.1 - Anónimo - Acceso denegado
+Thu May 29 2025 11:50:10 GMT-0600 (Central Standard Time) - 500 - ::ffff:127.0.0.1 - Anónimo - No se ha podido procesar la petición. Inténtelo nuevamente más tarde.
+Thu May 29 2025 11:56:33 GMT-0600 (Central Standard Time) - 500 - ::ffff:127.0.0.1 - Anónimo - No se ha podido procesar la petición. Inténtelo nuevamente más tarde.
+Thu May 29 2025 11:56:48 GMT-0600 (Central Standard Time) - 500 - ::ffff:127.0.0.1 - Anónimo - No se ha podido procesar la petición. Inténtelo nuevamente más tarde.
+Thu May 29 2025 12:00:20 GMT-0600 (Central Standard Time) - 500 - ::ffff:127.0.0.1 - Anónimo - No se ha podido procesar la petición. Inténtelo nuevamente más tarde.
+Thu May 29 2025 12:21:01 GMT-0600 (Central Standard Time) - 401 - ::ffff:127.0.0.1 - Anónimo - Acceso denegado
+Thu May 29 2025 12:21:37 GMT-0600 (Central Standard Time) - 401 - ::ffff:127.0.0.1 - Anónimo - Acceso denegado
+Thu May 29 2025 12:23:52 GMT-0600 (Central Standard Time) - 401 - ::ffff:127.0.0.1 - Anónimo - Acceso denegado
+Thu May 29 2025 12:27:55 GMT-0600 (Central Standard Time) - 401 - ::ffff:127.0.0.1 - Anónimo - Acceso denegado
+Thu May 29 2025 12:28:25 GMT-0600 (Central Standard Time) - 401 - ::ffff:127.0.0.1 - Anónimo - Acceso denegado
+Thu May 29 2025 12:28:56 GMT-0600 (Central Standard Time) - 401 - ::ffff:127.0.0.1 - Anónimo - Acceso denegado
+Thu May 29 2025 12:32:59 GMT-0600 (Central Standard Time) - 401 - ::ffff:127.0.0.1 - Anónimo - Acceso denegado
+Thu May 29 2025 13:28:35 GMT-0600 (Central Standard Time) - 401 - ::ffff:127.0.0.1 - Anónimo - Acceso denegado
