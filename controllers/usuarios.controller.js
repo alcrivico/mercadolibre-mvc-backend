@@ -32,21 +32,21 @@ self.get = async function (req, res, next) {
     const email = req.params.email;
     const data = await usuario.findOne({
       where: { email: email },
-      raw: true,
-      attributes: [
-        "id",
-        "email",
-        "nombre",
-        [Sequelize.col("rol.nombre"), "rol"],
-      ],
+      attributes: ["id", "email", "nombre"],
       include: {
         model: rol,
-        attributes: [],
+        attributes: ["nombre"],
       },
     });
 
     if (data) {
-      return res.status(200).json(data);
+      // Devuelve el rol como string plano
+      return res.status(200).json({
+        id: data.id,
+        email: data.email,
+        nombre: data.nombre,
+        rol: data.rol ? data.rol.nombre : null,
+      });
     }
 
     return res.status(404).send();
@@ -104,7 +104,7 @@ self.update = async function (req, res, next) {
 
     // Find the role
     const rolUsuario = await rol.findOne({
-      where: { nombre: req.body.rol },
+      where: { nombre: req.body.itemToEdit.rol },
     });
 
     if (!rolUsuario) {
@@ -114,9 +114,9 @@ self.update = async function (req, res, next) {
       });
     }
 
-    req.body.rolid = rolUsuario.id;
+    req.body.itemToEdit.rolid = rolUsuario.id;
 
-    const data = await usuario.update(req.body, {
+    const data = await usuario.update(req.body.itemToEdit, {
       where: { email: email },
     });
 
