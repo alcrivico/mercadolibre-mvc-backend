@@ -98,40 +98,47 @@ self.create = async function (req, res, next) {
 };
 
 // PUT: api/usuarios/email
+// PUT: api/usuarios/email
 self.update = async function (req, res, next) {
   try {
     const email = req.params.email;
+    const updateData = { ...req.body };
 
-    // Find the role
-    const rolUsuario = await rol.findOne({
-      where: { nombre: req.body.itemToEdit.rol },
-    });
-
-    if (!rolUsuario) {
-      return res.status(400).json({
-        success: false,
-        message: "Rol especificado no existe",
+    // Si se proporciona el rol, lo buscamos
+    if (req.body.rol) {
+      const rolUsuario = await rol.findOne({
+        where: { nombre: req.body.rol },
       });
+
+      if (!rolUsuario) {
+        return res.status(400).json({
+          success: false,
+          message: "Rol especificado no existe",
+        });
+      }
+
+      updateData.rolid = rolUsuario.id;
     }
 
-    req.body.itemToEdit.rolid = rolUsuario.id;
+    // Eliminamos "rol" del cuerpo si fue enviado solo como string
+    delete updateData.rol;
 
-    const data = await usuario.update(req.body.itemToEdit, {
+    const [affected] = await usuario.update(updateData, {
       where: { email: email },
     });
 
-    if (data[0] === 0) {
+    if (affected === 0) {
       return res.status(404).send();
     }
 
-    // Bitácora
     req.bitacora("usuarios.editar", email);
-
     return res.status(204).send();
   } catch (error) {
     next(error);
   }
 };
+
+
 
 // DELETE: api/usuarios/email
 self.delete = async function (req, res, next) {

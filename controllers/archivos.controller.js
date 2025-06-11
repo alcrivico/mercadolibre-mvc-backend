@@ -25,7 +25,7 @@ self.getDetalle = async function (req, res, next) {
       attributes: [["id", "archivoId"], "mime", "indb", "nombre", "size"],
     });
 
-    if (data) return res.status(200).json();
+    if (data) return res.status(200).json(data);
     else return res.status(404).send();
   } catch (error) {
     next(error);
